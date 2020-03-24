@@ -1,10 +1,10 @@
 package wasteless.server.business;
 
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.util.Date;
 
+@Entity
+@Table(name = "items")
 public class Item {
     private Long itemId;
 
@@ -35,6 +35,7 @@ public class Item {
         this.itemId = itemId;
     }
 
+    @Column(name = "item_name", nullable = false)
     public String getItemName() {
         return itemName;
     }
@@ -43,6 +44,7 @@ public class Item {
         this.itemName = itemName;
     }
 
+    @Column(name = "item_quantity", nullable = false)
     public Float getQuantity() {
         return quantity;
     }
@@ -51,6 +53,7 @@ public class Item {
         this.quantity = quantity;
     }
 
+    @Column(name = "calorie_value", nullable = false)
     public Float getCalorieValue() {
         return calorieValue;
     }
@@ -59,6 +62,7 @@ public class Item {
         this.calorieValue = calorieValue;
     }
 
+    @Column(name = "purchase_date", nullable = false)
     public Date getPurchaseDate() {
         return purchaseDate;
     }
@@ -67,6 +71,7 @@ public class Item {
         this.purchaseDate = purchaseDate;
     }
 
+    @Column(name = "expiration_date", nullable = false)
     public Date getExpirationDate() {
         return expirationDate;
     }
@@ -75,6 +80,7 @@ public class Item {
         this.expirationDate = expirationDate;
     }
 
+    @Column(name = "consumption_date", nullable = false)
     public Date getConsumptionDate() {
         return consumptionDate;
     }

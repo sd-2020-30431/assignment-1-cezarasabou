@@ -10,7 +10,3 @@ public interface EmployeeRepository extends JpaRepository<Employee, Long>{
 
 }
 
-@Repository
-public interface ItemRepository extends JpaRepository<Item, Long>{
-
-}

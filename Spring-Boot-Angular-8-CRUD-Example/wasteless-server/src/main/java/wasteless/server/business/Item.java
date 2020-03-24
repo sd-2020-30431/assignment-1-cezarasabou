@@ -1,5 +1,8 @@
 package wasteless.server.business;
 
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
 import java.util.Date;
 
 public class Item {
@@ -22,6 +25,8 @@ public class Item {
         this.consumptionDate = consumptionDate;
     }
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     public Long getItemId() {
         return itemId;
     }

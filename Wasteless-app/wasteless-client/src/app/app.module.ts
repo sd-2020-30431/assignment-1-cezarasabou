@@ -10,6 +10,10 @@ import { UpdateEmployeeComponent } from './update-employee/update-employee.compo
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
+import { SignUpComponent } from './sign-up/sign-up.component';
+import { ItemComponent } from './item/item.component';
+import { ItemDetailsComponent } from './item-details/item-details.component';
+import { AddItemComponent } from './add-item/add-item.component';
 
 @NgModule({
   declarations: [
@@ -18,7 +22,11 @@ import { LoginComponent } from './login/login.component';
     EmployeeDetailsComponent,
     EmployeeListComponent,
     UpdateEmployeeComponent,
-    LoginComponent
+    LoginComponent,
+    SignUpComponent,
+    ItemComponent,
+    ItemDetailsComponent,
+    AddItemComponent
   ],
   imports: [
     BrowserModule,

@@ -20,10 +20,10 @@ describe('AppComponent', () => {
     expect(app).toBeTruthy();
   });
 
-  it(`should have as title 'angular8-springboot-client'`, () => {
+  it(`should have as title 'Wasteless-Application'`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.debugElement.componentInstance;
-    expect(app.title).toEqual('angular8-springboot-client');
+    expect(app.title).toEqual('Wasteless-Application');
   });
 
   it('should render title', () => {

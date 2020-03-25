@@ -10,10 +10,10 @@ import { UpdateEmployeeComponent } from './update-employee/update-employee.compo
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule } from '@angular/forms';
 import { LoginComponent } from './login/login.component';
-import { SignUpComponent } from './sign-up/sign-up.component';
 import { ItemComponent } from './item/item.component';
 import { ItemDetailsComponent } from './item-details/item-details.component';
 import { AddItemComponent } from './add-item/add-item.component';
+import { RegisterComponent } from './register/register.component';
 
 @NgModule({
   declarations: [
@@ -23,10 +23,10 @@ import { AddItemComponent } from './add-item/add-item.component';
     EmployeeListComponent,
     UpdateEmployeeComponent,
     LoginComponent,
-    SignUpComponent,
     ItemComponent,
     ItemDetailsComponent,
-    AddItemComponent
+    AddItemComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

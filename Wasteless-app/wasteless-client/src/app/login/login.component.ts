@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import {Employee} from "../employee";
 
 @Component({
   selector: 'app-login',
@@ -7,9 +8,18 @@ import { Component, OnInit } from '@angular/core';
 })
 export class LoginComponent implements OnInit {
 
-  constructor() { }
+  submitted = false;
+  constructor(private router: Router) { }
 
   ngOnInit() {
+  }
+
+  onSubmit() {
+    this.submitted = true;
+  }
+
+  goToGroceryList(){
+    this.router.navigate(['/items']);
   }
 
 }

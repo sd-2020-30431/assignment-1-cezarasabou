@@ -1,5 +1,5 @@
-export class Employee {
-  id: number;
+export class Item{
+  itemId: number;
   itemName: string;
   quantity: number;
   calorieValue: number;

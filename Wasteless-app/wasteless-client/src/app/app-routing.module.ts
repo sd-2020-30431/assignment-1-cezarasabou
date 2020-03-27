@@ -4,8 +4,10 @@ import { EmployeeListComponent } from './employee-list/employee-list.component';
 import { CreateEmployeeComponent } from './create-employee/create-employee.component';
 import { UpdateEmployeeComponent } from './update-employee/update-employee.component';
 import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
-import {RegisterComponent} from "./register/register.component";
-import {LoginComponent} from "./login/login.component";
+import { RegisterComponent } from "./register/register.component";
+import { LoginComponent } from "./login/login.component";
+import { AddItemComponent } from "./add-item/add-item.component";
+import { ItemListComponent } from "./item-list/item-list.component";
 
 
 const routes: Routes = [
@@ -20,6 +22,10 @@ const routes: Routes = [
   { path: 'register', component: RegisterComponent },
 
   { path: 'login', component: LoginComponent },
+
+   { path: 'items', component: ItemListComponent},
+   { path: 'items/addItem', component: AddItemComponent },
+
 ];
 
 @NgModule({

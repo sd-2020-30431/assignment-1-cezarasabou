@@ -1,4 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import {Item} from '../item';
+import { ItemService } from '../item.service';
+import { ItemListComponent } from '../item-list/item-list.component';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-item-details',
@@ -7,9 +11,25 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ItemDetailsComponent implements OnInit {
 
-  constructor() { }
+   id: number;
+   item: Item;
 
-  ngOnInit() {
-  }
+   constructor(private route: ActivatedRoute,private router: Router,
+     private itemService: ItemService) { }
 
+   ngOnInit() {
+     this.item = new Item();
+
+     this.id = this.route.snapshot.params['id'];
+
+     this.itemService.getItem(this.id)
+       .subscribe(data => {
+         console.log(data)
+         this.item = data;
+       }, error => console.log(error));
+   }
+
+   list(){
+     this.router.navigate(['items']);
+   }
 }

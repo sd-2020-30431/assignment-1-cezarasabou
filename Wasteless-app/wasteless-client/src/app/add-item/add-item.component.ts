@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import { Item } from '../item';
+import { Router } from '@angular/router';
+import { ItemService } from '../item.service';
 
 @Component({
   selector: 'app-add-item',
@@ -7,7 +10,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AddItemComponent implements OnInit {
 
-  item: Item  = new Item();
+  item: Item =  new Item();
   submitted = false;
 
   constructor(private itemService: ItemService, private router: Router) { }

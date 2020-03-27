@@ -16,6 +16,10 @@ public class Item {
     private Date expirationDate;
     private Date consumptionDate;
 
+    public Item() {
+
+    }
+
     public Item(String itemName, Float quantity, Float calorieValue, Date purchaseDate, Date expirationDate, Date consumptionDate) {
         this.itemName = itemName;
         this.quantity = quantity;

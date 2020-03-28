@@ -11,7 +11,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 })
 export class ItemDetailsComponent implements OnInit {
 
-   id: number;
+   itemId: number;
    item: Item;
 
    constructor(private route: ActivatedRoute,private router: Router,
@@ -20,9 +20,9 @@ export class ItemDetailsComponent implements OnInit {
    ngOnInit() {
      this.item = new Item();
 
-     this.id = this.route.snapshot.params['id'];
+     this.itemId = this.route.snapshot.params['itemId'];
 
-     this.itemService.getItem(this.id)
+     this.itemService.getItem(this.itemId)
        .subscribe(data => {
          console.log(data)
          this.item = data;

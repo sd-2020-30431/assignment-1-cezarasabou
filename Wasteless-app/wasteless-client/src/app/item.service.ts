@@ -11,20 +11,20 @@ export class ItemService {
 
     constructor(private http: HttpClient) { }
 
-    getItem(id: number): Observable<any> {
-      return this.http.get(`${this.baseUrl}/${id}`);
+    getItem(itemId: number): Observable<any> {
+      return this.http.get(`${this.baseUrl}/${itemId}`);
     }
 
     createItem(item: Object): Observable<Object> {
       return this.http.post(`${this.baseUrl}`, item);
     }
 
-    updateEmployee(id: number, value: any): Observable<Object> {
-      return this.http.put(`${this.baseUrl}/${id}`, value);
+    updateEmployee(itemId: number, value: any): Observable<Object> {
+      return this.http.put(`${this.baseUrl}/${itemId}`, value);
     }
 
-    deleteItem(id: number): Observable<any> {
-      return this.http.delete(`${this.baseUrl}/${id}`, { responseType: 'text' });
+    deleteItem(itemId: number): Observable<any> {
+      return this.http.delete(`${this.baseUrl}/${itemId}`, { responseType: 'text' });
     }
 
     getItemList(): Observable<any> {

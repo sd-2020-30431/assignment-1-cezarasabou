@@ -15,8 +15,8 @@
       <tr *ngFor="let item of items | async">
         <td>{{item.itemName}}</td>
         <td>{{item.quantity}}</td>
-        <td><button (click)="deleteItem(item.id)" class="btn btn-danger">Delete</button>
-          <button (click)="itemDetails(item.id)" class="btn btn-info" style="margin-left: 10px">Details</button>
+        <td><button (click)="deleteItem(item.itemId)" class="btn btn-danger">Delete</button>
+          <button  (click)="itemDetails(item.itemId)" class="btn btn-info" style="margin-left: 10px">Details</button>
         </td>
       </tr>
       </tbody>

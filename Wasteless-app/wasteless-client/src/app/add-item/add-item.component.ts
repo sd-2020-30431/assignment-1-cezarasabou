@@ -39,4 +39,10 @@ export class AddItemComponent implements OnInit {
       this.router.navigate(['/items']);
     }
 
+  keyDownFunction(event) {
+    if(event.keyCode == 13) {
+      alert('you just clicked enter');
+      // rest of your code
+    }
+  }
 }

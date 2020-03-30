@@ -25,7 +25,7 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
 
    { path: 'items', component: ItemListComponent},
-  { path: 'itemDetails', component: ItemDetailsComponent},
+  { path: 'itemDetails/:itemId', component: ItemDetailsComponent},
    { path: 'items/addItem', component: AddItemComponent },
 
 ];

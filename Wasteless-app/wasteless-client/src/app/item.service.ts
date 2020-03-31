@@ -19,7 +19,7 @@ export class ItemService {
       return this.http.post(`${this.baseUrl}`, item);
     }
 
-    updateEmployee(itemId: number, value: any): Observable<Object> {
+    updateItem(itemId: number, value: any): Observable<Object> {
       return this.http.put(`${this.baseUrl}/${itemId}`, value);
     }
 

@@ -1,6 +1,8 @@
 package wasteless.server.business;
 
 import javax.persistence.*;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.Date;
 
 @Entity
@@ -12,15 +14,15 @@ public class Item {
     private String itemName;
     private Float quantity;
     private Float calorieValue;
-    private Date purchaseDate;
-    private Date expirationDate;
-    private Date consumptionDate;
+    private LocalDate purchaseDate;
+    private LocalDate expirationDate;
+    private LocalDate consumptionDate;
 
     public Item() {
 
     }
 
-    public Item(String itemName, Float quantity, Float calorieValue, Date purchaseDate, Date expirationDate, Date consumptionDate) {
+    public Item(String itemName, Float quantity, Float calorieValue, LocalDate purchaseDate, LocalDate expirationDate, LocalDate consumptionDate) {
         this.itemName = itemName;
         this.quantity = quantity;
         this.calorieValue = calorieValue;
@@ -67,29 +69,44 @@ public class Item {
     }
 
     @Column(name = "purchase_date", nullable = false)
-    public Date getPurchaseDate() {
+    public LocalDate getPurchaseDate() {
         return purchaseDate;
     }
 
-    public void setPurchaseDate(Date purchaseDate) {
+    public void setPurchaseDate(LocalDate purchaseDate) {
         this.purchaseDate = purchaseDate;
     }
 
     @Column(name = "expiration_date", nullable = false)
-    public Date getExpirationDate() {
+    public LocalDate getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(LocalDate expirationDate) {
         this.expirationDate = expirationDate;
     }
 
     @Column(name = "consumption_date", nullable = false)
-    public Date getConsumptionDate() {
+    public LocalDate getConsumptionDate() {
         return consumptionDate;
     }
 
-    public void setConsumptionDate(Date consumptionDate) {
+    public void setConsumptionDate(LocalDate consumptionDate) {
         this.consumptionDate = consumptionDate;
+
     }
+
+    boolean checkIfAlreadyExpired(){
+        LocalDate currentDate = LocalDate.now();
+        return this.expirationDate.isAfter(currentDate);
+    }
+
+
+
+    private int getDaysUntilExpired(){
+        LocalDate currentDate = LocalDate.now();
+        return (int) ChronoUnit.DAYS.between(currentDate,expirationDate);
+    }
+
+
 }

@@ -2,7 +2,6 @@ import { Component, OnInit } from '@angular/core';
 import {User} from "../user";
 import {UserService} from "../user.service";
 import {Router} from "@angular/router";
-import {Employee} from "../employee";
 
 @Component({
   selector: 'app-register',
@@ -20,7 +19,7 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  newEmployee(): void {
+  newUser(): void {
     this.submitted = false;
     this.user = new User();
   }

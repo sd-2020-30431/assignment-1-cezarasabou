@@ -103,7 +103,7 @@ public class Item {
 
 
 
-    private int getDaysUntilExpired(){
+    private int daysUntilExpired(){
         LocalDate currentDate = LocalDate.now();
         return (int) ChronoUnit.DAYS.between(currentDate,expirationDate);
     }

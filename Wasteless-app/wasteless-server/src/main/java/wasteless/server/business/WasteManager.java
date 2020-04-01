@@ -44,10 +44,8 @@ public class WasteManager {
         return calories/periodInDays;
     }
 
-
     //from here we notify the user if the waste levels exceed the limits
     private boolean wasteExceedsLimits(int periodInDays){
         return getActualBurndownRate(periodInDays) > idealBurndownRate;
     }
-
 }

@@ -14,6 +14,7 @@ import { ItemDetailsComponent } from './item-details/item-details.component';
 import { AddItemComponent } from './add-item/add-item.component';
 import { RegisterComponent } from './register/register.component';
 import { ItemListComponent } from './item-list/item-list.component';
+import { MainPageComponent } from './main-page/main-page.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { ItemListComponent } from './item-list/item-list.component';
     ItemDetailsComponent,
     AddItemComponent,
     RegisterComponent,
-    ItemListComponent
+    ItemListComponent,
+    MainPageComponent
   ],
   imports: [
     BrowserModule,

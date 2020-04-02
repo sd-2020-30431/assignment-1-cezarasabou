@@ -18,6 +18,12 @@ public class Item {
     private LocalDate expirationDate;
     private LocalDate consumptionDate;
 
+
+
+    @ManyToOne
+    @JoinColumn
+    private int itemToGroceryListId;
+
     public Item() {
 
     }
@@ -101,7 +107,14 @@ public class Item {
         return this.expirationDate.isAfter(currentDate);
     }
 
+    @Column(name = "item_to_grocery_list_id", nullable = false)
+    public int getItemToGroceryListId() {
+        return itemToGroceryListId;
+    }
 
+    public void setItemToGroceryListId(int itemToGroceryListId) {
+        this.itemToGroceryListId = itemToGroceryListId;
+    }
 
     private int daysUntilExpired(){
         LocalDate currentDate = LocalDate.now();

@@ -7,9 +7,14 @@ import java.util.List;
 @Entity
 @Table(name = "grocery_lists")
 public class GroceryList {
+
     private List<Item> groceryItems = new LinkedList<>();
     private int groceryListId;
     private String groceryListName;
+
+    public GroceryList(){
+
+    }
 
     public GroceryList(String groceryListName) {
         this.groceryListName = groceryListName;
@@ -25,6 +30,7 @@ public class GroceryList {
         this.groceryListId = groceryListId;
     }
 
+    @OneToMany(mappedBy = "grocery_lists", cascade = CascadeType.ALL)
     public List<Item> getGroceryItems() {
         return groceryItems;
     }

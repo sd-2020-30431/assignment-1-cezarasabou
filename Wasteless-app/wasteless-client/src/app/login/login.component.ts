@@ -24,6 +24,10 @@ export class LoginComponent implements OnInit {
     this.router.navigate(['/items']);
   }
 
+  goToMainPage(){
+    this.router.navigate(['/mainPage']);
+  }
+
   keyDownFunction(event) {
     if(event.keyCode == 13) {
       alert('you just clicked enter');

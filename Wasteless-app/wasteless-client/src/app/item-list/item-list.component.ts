@@ -33,6 +33,7 @@ export class ItemListComponent implements OnInit {
         error => console.log(error));
   }
 
+
   itemDetails(itemId:number){
     this.router.navigate(['itemDetails',itemId]);
   }

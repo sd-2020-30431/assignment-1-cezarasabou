@@ -9,6 +9,7 @@ import { LoginComponent } from "./login/login.component";
 import { AddItemComponent } from "./add-item/add-item.component";
 import { ItemListComponent } from "./item-list/item-list.component";
 import {ItemDetailsComponent} from "./item-details/item-details.component";
+import {MainPageComponent} from "./main-page/main-page.component";
 
 
 const routes: Routes = [
@@ -27,6 +28,11 @@ const routes: Routes = [
    { path: 'items', component: ItemListComponent},
   { path: 'itemDetails/:itemId', component: ItemDetailsComponent},
    { path: 'items/addItem', component: AddItemComponent },
+
+  { path: 'mainPage', component: MainPageComponent},
+  { path: 'mainPage/addGroceryList', component: MainPageComponent},
+
+
 
 ];
 

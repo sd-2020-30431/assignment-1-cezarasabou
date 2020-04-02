@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
 })
 export class MainPageService {
 
-  private baseUrl = 'http://localhost:8080/springboot-crud-rest/itemLists';
+  private baseUrl = 'http://localhost:8080/itemLists';
 
   constructor(private http: HttpClient) { }
 
@@ -16,18 +16,18 @@ export class MainPageService {
   }
 
   createGroceryList(groceryList: Object): Observable<Object> {
-    return this.http.post(`${this.baseUrl}`, item);
+    return this.http.post(`${this.baseUrl}`, groceryList);
   }
 
-  updateItem(itemId: number, value: any): Observable<Object> {
-    return this.http.put(`${this.baseUrl}/${itemId}`, value);
+  updateItem(groceryListId: number, value: any): Observable<Object> {
+    return this.http.put(`${this.baseUrl}/${groceryListId}`, value);
   }
 
-  deleteItem(itemId: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${itemId}`, { responseType: 'text' });
+  deleteItem(groceryListId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${groceryListId}`, { responseType: 'text' });
   }
 
-  getItemList(): Observable<any> {
+  getItemLists(): Observable<any> {
     return this.http.get(`${this.baseUrl}`);
   }
 }

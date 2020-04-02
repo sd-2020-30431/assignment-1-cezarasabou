@@ -3,7 +3,7 @@ package wasteless.server.presentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import wasteless.server.business.Item;
+import wasteless.server.model.Item;
 import wasteless.server.exception.ResourceNotFoundException;
 import wasteless.server.persistance.ItemRepository;
 

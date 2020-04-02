@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wasteless.server.exception.ResourceNotFoundException;
-import wasteless.server.business.User;
+import wasteless.server.model.User;
 import wasteless.server.persistance.UserRepository;
 
 import javax.validation.Valid;

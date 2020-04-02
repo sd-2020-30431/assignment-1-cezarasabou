@@ -3,11 +3,9 @@ package wasteless.server.presentation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import wasteless.server.business.GroceryList;
-import wasteless.server.business.Item;
+import wasteless.server.model.GroceryList;
 import wasteless.server.exception.ResourceNotFoundException;
 import wasteless.server.persistance.GroceryListRepository;
-import wasteless.server.persistance.ItemRepository;
 
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -47,6 +45,7 @@ public class GroceryListController {
 
         //aici nu stiu cum sa preiau datele din items
         groceryList.setGroceryListName(groceryListDetails.getGroceryListName());
+        groceryList.setGroceryItems(groceryListDetails.getGroceryItems());
 
         final GroceryList updatedGroceryList = groceryListRepository.save(groceryList);
         return ResponseEntity.ok(updatedGroceryList);
@@ -56,7 +55,7 @@ public class GroceryListController {
     public Map<String, Boolean> deleteGroceryList(@PathVariable(value = "list_id") Long groceryListId)
             throws ResourceNotFoundException {
         GroceryList groceryList = groceryListRepository.findById(groceryListId)
-                .orElseThrow(() -> new ResourceNotFoundException("Item not found for this id :: " + groceryListId));
+                .orElseThrow(() -> new ResourceNotFoundException("Grocery list not found for this id :: " + groceryListId));
 
         groceryListRepository.delete(groceryList);
         Map<String, Boolean> response = new HashMap<>();

@@ -1,1 +1,25 @@
-<p>main-page works!</p>
+<div class="panel panel-primary">
+  <div class="panel-heading">
+    <h2>Your Grocery Lists</h2>
+  </div>
+  <div class="panel-body">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Grocery List </th>
+        <th>Actions</th>
+      </tr>
+      </thead>
+      <tbody>
+      <tr *ngFor="let groceryList of groceryLists | async">
+        <td>{{groceryList.groceryListName}}</td>
+        <td><button (click)="deleteGroceryList(groceryList.groceryListId)" class="btn btn-danger">Delete</button>
+          <button  (click)="groceryListDetails(groceryList.groceryListId)" class="btn btn-info" style="margin-left: 10px">Details</button>
+        </td>
+      </tr>
+      </tbody>
+    </table>
+
+    <button routerLink="addGroceryList" class="btn btn-success pull-right">Add Grocery List</button>
+  </div>
+</div>

@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
 })
 export class RegisterService {
 
-  private baseUrl = 'http://localhost:8080/springboot-crud-rest/register';
+  private baseUrl = 'http://localhost:8080/register';
 
   constructor(private http: HttpClient) { }
 

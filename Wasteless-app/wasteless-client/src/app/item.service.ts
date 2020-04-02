@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 })
 export class ItemService {
 
-   private baseUrl = 'http://localhost:8080/springboot-crud-rest/items';
+   private baseUrl = 'http://localhost:8080/items';
 
     constructor(private http: HttpClient) { }
 

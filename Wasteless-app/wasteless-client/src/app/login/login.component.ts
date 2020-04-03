@@ -17,7 +17,7 @@ export class LoginComponent implements OnInit {
 
   onSubmit() {
     this.submitted = true;
-    this.goToGroceryList();
+    this.goToMainPage();
   }
 
   goToGroceryList(){

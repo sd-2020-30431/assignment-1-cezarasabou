@@ -7,7 +7,7 @@ import {Observable} from "rxjs";
 })
 export class MainPageService {
 
-  private baseUrl = 'http://localhost:8080/itemLists';
+  private baseUrl = 'http://localhost:8080';
 
   constructor(private http: HttpClient) { }
 
@@ -27,7 +27,7 @@ export class MainPageService {
     return this.http.delete(`${this.baseUrl}/${groceryListId}`, { responseType: 'text' });
   }
 
-  getItemLists(): Observable<any> {
-    return this.http.get(`${this.baseUrl}`);
+  getAllGroceryLists(): Observable<any> {
+    return this.http.get(`${this.baseUrl}/grocery_lists`);
   }
 }

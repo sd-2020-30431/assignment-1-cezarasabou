@@ -21,7 +21,7 @@ export class MainPageComponent implements OnInit {
   }
 
   reloadData(){
-    this.groceryLists = this.mainPageService.getItemLists();
+    this.groceryLists = this.mainPageService.getAllGroceryLists();
   }
 
   deleteGroceryList(groceryListId:number){

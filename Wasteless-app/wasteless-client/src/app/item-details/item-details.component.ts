@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Item} from '../item';
 import { ItemService } from '../item.service';
-import { ItemListComponent } from '../item-list/item-list.component';
+import { GroceryListComponent } from '../grocery-list/grocery-list.component';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({

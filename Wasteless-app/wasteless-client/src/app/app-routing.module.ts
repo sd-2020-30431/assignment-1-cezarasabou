@@ -7,9 +7,10 @@ import { EmployeeDetailsComponent } from './employee-details/employee-details.co
 import { RegisterComponent } from "./register/register.component";
 import { LoginComponent } from "./login/login.component";
 import { AddItemComponent } from "./add-item/add-item.component";
-import { ItemListComponent } from "./item-list/item-list.component";
+import { GroceryListComponent } from "./grocery-list/grocery-list.component";
 import {ItemDetailsComponent} from "./item-details/item-details.component";
 import {MainPageComponent} from "./main-page/main-page.component";
+import {CreateGroceryListComponent} from "./create-grocery-list/create-grocery-list.component";
 
 
 const routes: Routes = [
@@ -25,13 +26,13 @@ const routes: Routes = [
 
   { path: 'login', component: LoginComponent },
 
-   { path: 'items', component: ItemListComponent},
+   { path: 'items', component: GroceryListComponent},
   { path: 'itemDetails/:itemId', component: ItemDetailsComponent},
    { path: 'items/addItem', component: AddItemComponent },
 
   { path: 'mainPage', component: MainPageComponent},
-  { path: 'mainPage/addGroceryList', component: MainPageComponent},
-
+  { path: 'mainPage/addGroceryList', component: CreateGroceryListComponent},
+  { path: 'groceryListDetails/:groceryListId', component: GroceryListComponent},
 
 
 ];

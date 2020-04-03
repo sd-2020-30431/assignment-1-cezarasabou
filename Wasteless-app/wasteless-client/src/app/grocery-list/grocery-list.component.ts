@@ -6,10 +6,10 @@ import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-item-list',
-  templateUrl: './item-list.component.html',
-  styleUrls: ['./item-list.component.css']
+  templateUrl: './grocery-list.component.html',
+  styleUrls: ['./grocery-list.component.css']
 })
-export class ItemListComponent implements OnInit {
+export class GroceryListComponent implements OnInit {
 
   items: Observable<Item[]>;
   constructor(private itemService: ItemService,

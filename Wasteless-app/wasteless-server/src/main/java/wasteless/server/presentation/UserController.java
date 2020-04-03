@@ -1,6 +1,5 @@
 package wasteless.server.presentation;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wasteless.server.exception.ResourceNotFoundException;
@@ -15,8 +14,11 @@ import java.util.Map;
 @CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RestController
 public class UserController {
-    @Autowired
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
+
+    public UserController(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
     @GetMapping("/users")
     public List<User> getAllUsers() {

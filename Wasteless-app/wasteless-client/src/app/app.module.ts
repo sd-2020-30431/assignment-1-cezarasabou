@@ -13,8 +13,9 @@ import { LoginComponent } from './login/login.component';
 import { ItemDetailsComponent } from './item-details/item-details.component';
 import { AddItemComponent } from './add-item/add-item.component';
 import { RegisterComponent } from './register/register.component';
-import { ItemListComponent } from './item-list/item-list.component';
+import { GroceryListComponent } from './grocery-list/grocery-list.component';
 import { MainPageComponent } from './main-page/main-page.component';
+import { CreateGroceryListComponent } from './create-grocery-list/create-grocery-list.component';
 
 @NgModule({
   declarations: [
@@ -27,8 +28,9 @@ import { MainPageComponent } from './main-page/main-page.component';
     ItemDetailsComponent,
     AddItemComponent,
     RegisterComponent,
-    ItemListComponent,
-    MainPageComponent
+    GroceryListComponent,
+    MainPageComponent,
+    CreateGroceryListComponent
   ],
   imports: [
     BrowserModule,

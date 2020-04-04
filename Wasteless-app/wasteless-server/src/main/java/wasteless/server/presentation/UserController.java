@@ -1,5 +1,6 @@
 package wasteless.server.presentation;
 
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wasteless.server.exception.ResourceNotFoundException;
@@ -10,8 +11,8 @@ import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
-@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RestController
 public class UserController {
     private final UserRepository userRepository;
@@ -31,6 +32,23 @@ public class UserController {
         User user = userRepository.findById(userId)
                 .orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + userId));
         return ResponseEntity.ok().body(user);
+    }
+
+    @GetMapping("activeUser")
+    public User getActiveUser() {
+        return userRepository.findFirstByActiveTrue();
+    }
+
+    @PostMapping("user/login")
+    public ResponseEntity<User> loginUser(@Valid @RequestBody User loginUser) {
+        List<User> allUsers = userRepository.findAll();
+        Optional<User> matchingUser = allUsers
+                .stream()
+                .filter(user -> user.getEmailAddress().equals(loginUser.getEmailAddress()) &&
+                        user.getPassword().equals(loginUser.getPassword()))
+                .findFirst();
+        return matchingUser.isPresent() ? ResponseEntity.ok(matchingUser.get()) :
+                ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
 
     @PostMapping("/users")

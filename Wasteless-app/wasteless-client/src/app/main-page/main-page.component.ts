@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable} from "rxjs";
-import {GroceryList} from "../groceryList";
-import {MainPageService} from "../main-page.service";
+import {GroceryList} from "../grocery-list/groceryList";
+import {MainPageService} from "./main-page.service";
 import {Router} from "@angular/router";
 
 @Component({

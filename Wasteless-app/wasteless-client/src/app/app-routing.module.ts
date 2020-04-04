@@ -1,16 +1,16 @@
 import {Component, NgModule} from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { EmployeeListComponent } from './employee-list/employee-list.component';
-import { CreateEmployeeComponent } from './create-employee/create-employee.component';
-import { UpdateEmployeeComponent } from './update-employee/update-employee.component';
-import { EmployeeDetailsComponent } from './employee-details/employee-details.component';
-import { RegisterComponent } from "./register/register.component";
-import { LoginComponent } from "./login/login.component";
-import { AddItemComponent } from "./add-item/add-item.component";
+import { EmployeeListComponent } from './employee/employee-list/employee-list.component';
+import { CreateEmployeeComponent } from './employee/create-employee/create-employee.component';
+import { UpdateEmployeeComponent } from './employee/update-employee/update-employee.component';
+import { EmployeeDetailsComponent } from './employee/employee-details/employee-details.component';
+import { RegisterComponent } from "./user/register/register.component";
+import { LoginComponent } from "./user/login/login.component";
+import { AddItemComponent } from "./grocery-item/add-item/add-item.component";
 import { GroceryListComponent } from "./grocery-list/grocery-list.component";
-import {ItemDetailsComponent} from "./item-details/item-details.component";
+import {ItemDetailsComponent} from "./grocery-item/item-details/item-details.component";
 import {MainPageComponent} from "./main-page/main-page.component";
-import {CreateGroceryListComponent} from "./create-grocery-list/create-grocery-list.component";
+import {CreateGroceryListComponent} from "./grocery-list/create-grocery-list/create-grocery-list.component";
 
 
 const routes: Routes = [

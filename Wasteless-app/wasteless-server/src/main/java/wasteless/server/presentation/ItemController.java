@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RestController
 public class ItemController {
     private final ItemRepository itemRepository;

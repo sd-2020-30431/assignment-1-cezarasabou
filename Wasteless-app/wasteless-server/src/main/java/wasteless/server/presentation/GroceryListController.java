@@ -11,7 +11,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-@CrossOrigin(origins = "http://localhost:4200", allowCredentials = "true")
 @RestController
 public class GroceryListController {
     private final GroceryListRepository groceryListRepository;
@@ -20,27 +19,28 @@ public class GroceryListController {
         this.groceryListRepository = groceryListRepository;
     }
 
-    @GetMapping("/grocery_lists")
-    public List<GroceryList> getAllItems() {
+    @GetMapping("/groceryLists")
+    public List<GroceryList> getAllGroceryLists() {
         return groceryListRepository.findAll();
     }
 
-    @GetMapping("/grocery_lists/{id}")
-    public ResponseEntity<GroceryList> getItemById(@PathVariable(value = "id") Long groceryListId)
+    @GetMapping("/groceryList/{id}")
+    public ResponseEntity<GroceryList> getGroceryListById(@PathVariable(value = "id") Long groceryListId)
             throws ResourceNotFoundException {
         GroceryList groceryList = groceryListRepository.findById(groceryListId)
                 .orElseThrow(() -> new ResourceNotFoundException("Item not found for this id :: " + groceryListId));
         return ResponseEntity.ok().body(groceryList);
     }
 
-    @PostMapping("/grocery_lists")
-    public GroceryList createGroceryList(@Valid @RequestBody GroceryList groceryList) {
+    @PostMapping("{userId}/createGroceryList")
+    public GroceryList createGroceryList(@PathVariable(value = "userId") Long userId, @Valid @RequestBody String groceryListName) {
+        GroceryList groceryList = new GroceryList(groceryListName);
         return groceryListRepository.save(groceryList);
     }
 
-    @PutMapping("/grocery_lists/{id}")
-    public ResponseEntity<GroceryList> updateItem(@PathVariable(value = "list_id") Long groceryListId,
-                                           @Valid @RequestBody GroceryList groceryListDetails) throws ResourceNotFoundException {
+    @PutMapping("/updateGroceryListItem/{userId}")
+    public ResponseEntity<GroceryList> updateGroceryList(@PathVariable(value = "userId") Long groceryListId,
+                                                         @Valid @RequestBody GroceryList groceryListDetails) throws ResourceNotFoundException {
         GroceryList groceryList = groceryListRepository.findById(groceryListId)
                 .orElseThrow(() -> new ResourceNotFoundException("Item not found for this id :: " + groceryListId));
 
@@ -53,8 +53,8 @@ public class GroceryListController {
         return ResponseEntity.ok(updatedGroceryList);
     }
 
-    @DeleteMapping("/grocery_lists/{id}")
-    public Map<String, Boolean> deleteGroceryList(@PathVariable(value = "list_id") Long groceryListId)
+    @DeleteMapping("/deleteGroceryList/{id}")
+    public Map<String, Boolean> deleteGroceryList(@PathVariable(value = "id") Long groceryListId)
             throws ResourceNotFoundException {
         GroceryList groceryList = groceryListRepository.findById(groceryListId)
                 .orElseThrow(() -> new ResourceNotFoundException("Grocery list not found for this id :: " + groceryListId));

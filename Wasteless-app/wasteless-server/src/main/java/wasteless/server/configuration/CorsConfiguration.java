@@ -5,9 +5,6 @@ import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-/**
- * @author Andrei Pop (andrei.pop@cloudflight.io)
- */
 @Configuration
 public class CorsConfiguration{
     @Bean

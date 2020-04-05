@@ -3,81 +3,82 @@ package wasteless.server.presentation;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import wasteless.server.business.UserService;
 import wasteless.server.exception.ResourceNotFoundException;
 import wasteless.server.model.User;
-import wasteless.server.persistance.UserRepository;
+import wasteless.server.presentation.dto.UserDTO;
+import wasteless.server.presentation.mapper.UserMapper;
 
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @RestController
 public class UserController {
-    private final UserRepository userRepository;
 
-    public UserController(UserRepository userRepository) {
-        this.userRepository = userRepository;
+    private final UserService userService;
+    private final UserMapper userMapper;
+
+    public UserController(UserService userService, UserMapper userMapper) {
+        this.userService = userService;
+        this.userMapper = userMapper;
     }
 
     @GetMapping("/users")
-    public List<User> getAllUsers() {
-        return userRepository.findAll();
+    public List<UserDTO> getAllUsers() {
+        return userService.getAllUsers()
+                .stream()
+                .map(userMapper::convertToDTO)
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/users/{id}")
-    public ResponseEntity<User> getUSerById(@PathVariable(value = "id") Long userId)
+    public ResponseEntity<UserDTO> getUSerById(@PathVariable(value = "id") Long userId)
             throws ResourceNotFoundException {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + userId));
-        return ResponseEntity.ok().body(user);
+        User user = userService.getUserById(userId);
+        return ResponseEntity.ok().body(userMapper.convertToDTO(user));
     }
 
     @GetMapping("activeUser")
-    public User getActiveUser() {
-        return userRepository.findFirstByActiveTrue();
+    public UserDTO getActiveUser() {
+        User user = userService.getActiveUser();
+        return userMapper.convertToDTO(user);
     }
 
     @PostMapping("user/login")
-    public ResponseEntity<User> loginUser(@Valid @RequestBody User loginUser) {
-        List<User> allUsers = userRepository.findAll();
-        Optional<User> matchingUser = allUsers
-                .stream()
-                .filter(user -> user.getEmailAddress().equals(loginUser.getEmailAddress()) &&
-                        user.getPassword().equals(loginUser.getPassword()))
-                .findFirst();
-        return matchingUser.isPresent() ? ResponseEntity.ok(matchingUser.get()) :
+    public ResponseEntity<UserDTO> loginUser(@Valid @RequestBody User loginUser) {
+
+        Optional<User> matchingUser = userService.loginUser(loginUser);
+
+        return matchingUser.isPresent() ? ResponseEntity.ok(userMapper.convertToDTO(matchingUser.get())) :
                 ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(null);
     }
 
     @PostMapping("/users")
-    public User createUser(@Valid @RequestBody User user) {
-        return userRepository.save(user);
+    public UserDTO createUser(@Valid @RequestBody User user) {
+        return userMapper.convertToDTO(userService.createUser(user));
     }
 
     @PutMapping("/users/{id}")
-    public ResponseEntity<User> updateUser(@PathVariable(value = "id") Long userId,
-                                                   @Valid @RequestBody User userDetails) throws ResourceNotFoundException {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + userId));
+    public ResponseEntity<UserDTO> updateUser(@PathVariable(value = "id") Long userId,
+                                                   @Valid @RequestBody User userDetails) throws ResourceNotFoundException{
 
-        user.setEmailAddress(userDetails.getEmailAddress());
-        user.setLastName(userDetails.getLastName());
-        user.setFirstName(userDetails.getFirstName());
-        final User updatedUser = userRepository.save(user);
-        return ResponseEntity.ok(updatedUser);
+
+        final User updatedUser = userService.updateUser(userId,userDetails);
+        return ResponseEntity.ok(userMapper.convertToDTO(updatedUser));
     }
 
     @DeleteMapping("/users/{id}")
     public Map<String, Boolean> deleteUser(@PathVariable(value = "id") Long userId)
             throws ResourceNotFoundException {
-        User user = userRepository.findById(userId)
-                .orElseThrow(() -> new ResourceNotFoundException("User not found for this id :: " + userId));
-
-        userRepository.delete(user);
+        userService.deleteUser(userId);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return response;
     }
+
+
 }

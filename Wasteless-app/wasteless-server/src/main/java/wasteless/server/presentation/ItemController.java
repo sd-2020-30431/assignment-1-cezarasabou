@@ -2,67 +2,64 @@ package wasteless.server.presentation;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import wasteless.server.business.ItemService;
 import wasteless.server.exception.ResourceNotFoundException;
 import wasteless.server.model.Item;
-import wasteless.server.persistance.ItemRepository;
+import wasteless.server.presentation.dto.ItemDTO;
+import wasteless.server.presentation.mapper.ItemMapper;
 
 import javax.validation.Valid;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 @RestController
 public class ItemController {
-    private final ItemRepository itemRepository;
+    private final ItemService itemService;
+    private final ItemMapper itemMapper;
 
-    public ItemController(ItemRepository itemRepository) {
-        this.itemRepository = itemRepository;
+    public ItemController(ItemService itemService, ItemMapper itemMapper) {
+        this.itemService = itemService;
+        this.itemMapper = itemMapper;
     }
 
     @GetMapping("/items")
-    public List<Item> getAllItems() {
-        return itemRepository.findAll();
+    public List<ItemDTO> getAllItems() {
+        return itemService.getAllItems()
+                .stream()
+                .map(item -> itemMapper.convertToDTO(item))
+                .collect(Collectors.toList());
     }
 
     @GetMapping("/items/{id}")
-    public ResponseEntity<Item> getItemById(@PathVariable(value = "id") Long itemId)
+    public ResponseEntity<ItemDTO> getItemById(@PathVariable(value = "id") Long itemId)
             throws ResourceNotFoundException {
-        Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new ResourceNotFoundException("Item not found for this id :: " + itemId));
-        return ResponseEntity.ok().body(item);
+       Item item = itemService.getItemById(itemId);
+        return ResponseEntity.ok().body(itemMapper.convertToDTO(item));
     }
 
     @PostMapping("/items")
-    public Item createItem(@Valid @RequestBody Item item) {
-        return itemRepository.save(item);
+    public ItemDTO createItem(@Valid @RequestBody Item item) {
+        return itemMapper.convertToDTO(itemService.createItem(item));
     }
 
     @PutMapping("/items/{id}")
-    public ResponseEntity<Item> updateItem(@PathVariable(value = "id") Long itemId,
+    public ResponseEntity<ItemDTO> updateItem(@PathVariable(value = "id") Long itemId,
                                            @Valid @RequestBody Item itemDetails) throws ResourceNotFoundException {
-        Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new ResourceNotFoundException("Item not found for this id :: " + itemId));
 
-        item.setItemName(itemDetails.getItemName());
-        item.setCalorieValue(itemDetails.getCalorieValue());
-        item.setExpirationDate(itemDetails.getExpirationDate());
-        item.setConsumptionDate(itemDetails.getConsumptionDate());
-        item.setPurchaseDate(itemDetails.getPurchaseDate());
-        item.setQuantity(itemDetails.getQuantity());
 
-        final Item updatedItem = itemRepository.save(item);
-        return ResponseEntity.ok(updatedItem);
+        final Item updatedItem = itemService.updateItem(itemId,itemDetails);
+        return ResponseEntity.ok(itemMapper.convertToDTO(updatedItem));
     }
 
     @DeleteMapping("/items/{id}")
     public Map<String, Boolean> deleteItem(@PathVariable(value = "id") Long itemId)
             throws ResourceNotFoundException {
-        Item item = itemRepository.findById(itemId)
-                .orElseThrow(() -> new ResourceNotFoundException("Item not found for this id :: " + itemId));
-
-        itemRepository.delete(item);
+        itemService.deleteItem(itemId);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return response;
     }
+
 }

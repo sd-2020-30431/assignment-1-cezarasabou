@@ -36,7 +36,7 @@ export class AddItemComponent implements OnInit {
     }
 
     gotoList() {
-      this.router.navigate(['/items']);
+      this.router.navigate(['../']);
     }
 
   keyDownFunction(event) {

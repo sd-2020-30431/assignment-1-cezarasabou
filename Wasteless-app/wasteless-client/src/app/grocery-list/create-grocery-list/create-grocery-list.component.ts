@@ -1,7 +1,7 @@
 import {Component, OnInit} from '@angular/core';
 import {GroceryList} from "../groceryList";
 import {MainPageService} from "../../main-page/main-page.service";
-import {Router} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {User} from "../../user/user";
 
 @Component({
@@ -16,7 +16,8 @@ export class CreateGroceryListComponent implements OnInit {
   user: User;
 
   constructor(private mainPageService: MainPageService,
-              private router: Router) { }
+              private router: Router,
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
     this.mainPageService.getActiveUser().subscribe(
@@ -31,10 +32,9 @@ export class CreateGroceryListComponent implements OnInit {
   save() {
     this.mainPageService.createGroceryList(this.groceryList.groceryListName, this.user.id)
       .subscribe(
-        (data) => {
-          console.log(data);
-          this.groceryList = new GroceryList();
-          this.goToGroceryList(this.groceryList.groceryListId);
+        (createdGroceryList: GroceryList) => {
+          console.log(createdGroceryList);
+          this.goToGroceryList(createdGroceryList.groceryListId);
         } ,
         error => console.log(error));
   }
@@ -45,6 +45,10 @@ export class CreateGroceryListComponent implements OnInit {
   }
 
   goToGroceryList(groceryListId: number) {
-    this.router.navigate(['groceryList', groceryListId]);
+    this.router.navigate(['groceryList', groceryListId], {relativeTo: this.activatedRoute.parent});
+  }
+
+  mainPage(){
+    this.router.navigate(['mainPage']);
   }
 }

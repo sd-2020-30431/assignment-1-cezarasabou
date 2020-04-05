@@ -7,7 +7,7 @@
     </div>
 
     <div class="form-group">
-      <label for="name">Quantity</label>
+      <label for="name">Quantity(ml/g)</label>
       <input type="number" class="form-control" id="quantity" required [(ngModel)]="item.quantity" name="quantity">
     </div>
 
@@ -31,7 +31,7 @@
       <input type="date" class="form-control" id="expirationDate" required [(ngModel)]="item.expirationDate" name="expirationDate">
     </div>
 
-    <button routerLink="items" type="submit" class="btn btn-success">Submit</button>
+    <button type="submit" class="btn btn-success">Submit</button>
   </form>
 
   <form (keydown)="keyDownFunction($event)">

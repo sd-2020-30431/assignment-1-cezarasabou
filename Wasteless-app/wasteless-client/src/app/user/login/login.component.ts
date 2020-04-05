@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {Employee} from "../../employee/employee";
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
+import {LoginService} from "./login.service";
+import {User} from "../user";
 
 @Component({
   selector: 'app-login',
@@ -10,14 +12,26 @@ import { Router } from '@angular/router';
 export class LoginComponent implements OnInit {
 
   submitted = false;
-  constructor(private router: Router) { }
+  user: User;
+
+  constructor(private router: Router,
+              private activeRoute: ActivatedRoute,
+              private loginService: LoginService) { }
+
 
   ngOnInit() {
+    this.user = new User();
   }
 
   onSubmit() {
     this.submitted = true;
-    this.goToMainPage();
+    this.loginService.verifyUser(this.user).subscribe(
+      (user) => {
+        this.goToMainPage();
+      }, () => {
+        console.log('Error in the login page!');
+      }
+    );
   }
 
   goToGroceryList() {
@@ -25,6 +39,6 @@ export class LoginComponent implements OnInit {
   }
 
   goToMainPage() {
-    this.router.navigate(['/mainPage']);
+    this.router.navigate(['../mainPage'], {relativeTo: this.activeRoute});
   }
 }

@@ -6,8 +6,12 @@ import java.util.List;
 @Entity
 @Table(name = "grocery_list")
 public class GroceryList {
+    public GroceryList() {
+    }
 
-
+    public GroceryList(String groceryListName) {
+        this.groceryListName = groceryListName;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -20,10 +24,6 @@ public class GroceryList {
     @ManyToOne
     @JoinColumn(name="userId", nullable = false)
     private User user;
-
-    public GroceryList(String groceryListName) {
-        this.groceryListName = groceryListName;
-    }
 
     public int getId() {
         return id;
@@ -59,5 +59,14 @@ public class GroceryList {
 
     public void setUser(User user) {
         this.user = user;
+    }
+
+    @Override
+    public String toString() {
+        return "GroceryList{" +
+                "id=" + id +
+                ", groceryListName='" + groceryListName + '\'' +
+                ", groceryItems=" + groceryItems +
+                '}';
     }
 }

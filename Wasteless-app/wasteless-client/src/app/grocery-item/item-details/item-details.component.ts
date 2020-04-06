@@ -15,14 +15,14 @@ export class ItemDetailsComponent implements OnInit {
    groceryListId: string;
    item: Item;
 
-   constructor(private route: ActivatedRoute,private router: Router,
+   constructor(private activatedRoute: ActivatedRoute,private router: Router,
      private itemService: ItemService) { }
 
    ngOnInit() {
      this.item = new Item();
 
-     this.itemId = this.route.snapshot.params['itemId'];
-     this.groceryListId = this.route.snapshot.params['groceryListId'];
+     this.itemId = this.activatedRoute.snapshot.params['itemId'];
+     this.groceryListId = this.activatedRoute.snapshot.params['groceryListId'];
 
      this.itemService.getItem(this.itemId, this.groceryListId)
        .subscribe(data => {
@@ -32,6 +32,6 @@ export class ItemDetailsComponent implements OnInit {
    }
 
    list(){
-     this.router.navigate(['items']);
+     this.router.navigate(['../..'], {relativeTo: this.activatedRoute});
    }
 }

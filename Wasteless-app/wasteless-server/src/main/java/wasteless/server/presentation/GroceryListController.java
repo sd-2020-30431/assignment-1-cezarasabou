@@ -51,6 +51,8 @@ public class GroceryListController {
         return groceryListMapper.convertToDTO(groceryList);
     }
 
+    //public ceva calculaterates(@PathVariable(value="userId") Long userId,@Valid @RequestBody ceva )
+
     @PutMapping("{userId}/updateGroceryListItem/{id}")
     public ResponseEntity<GroceryListDTO> updateGroceryList(@PathVariable(value = "userId") Long userId,
                                                          @PathVariable(value = "id") Long groceryListId,

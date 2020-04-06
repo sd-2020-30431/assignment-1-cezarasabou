@@ -32,7 +32,7 @@ public class ItemController {
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/{groceryListId}/items/{id}")
+    @GetMapping("/{groceryListId}/{id}")
     public ResponseEntity<ItemDTO> getItemById(@PathVariable(value = "groceryListId") Long groceryListId,
                                                @PathVariable(value = "id") Long itemId)
             throws ResourceNotFoundException {
@@ -40,9 +40,9 @@ public class ItemController {
         return ResponseEntity.ok().body(itemMapper.convertToDTO(item));
     }
 
-    @PostMapping("/{groceryListId}/items")
+    @PostMapping("/{groceryListId}/createItem")
     public ItemDTO createItem(@PathVariable(value = "groceryListId") Long groceryListId,@Valid @RequestBody Item item) {
-        return itemMapper.convertToDTO(itemService.createItem(groceryListId,item));
+        return itemMapper.convertToDTO(itemService.createItem(groceryListId, item));
     }
 
     @PutMapping("/{groceryListId}/items/{id}")
@@ -55,7 +55,7 @@ public class ItemController {
         return ResponseEntity.ok(itemMapper.convertToDTO(updatedItem));
     }
 
-    @DeleteMapping("/items/{id}")
+    @GetMapping("/deleteItem/{id}")
     public Map<String, Boolean> deleteItem(@PathVariable(value = "id") Long itemId)
             throws ResourceNotFoundException {
         itemService.deleteItem(itemId);

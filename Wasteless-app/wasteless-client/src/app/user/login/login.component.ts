@@ -28,8 +28,9 @@ export class LoginComponent implements OnInit {
     this.submitted = true;
     this.loginService.verifyUser(this.user).subscribe(
       (user) => {
-        this.goToMainPage();
         this.validLogin = true;
+        this.goToMainPage();
+
       }, () => {
         console.log('Error in the login page!');
         //aici trebuie sa afisez pe pagina un mesaj de eroare

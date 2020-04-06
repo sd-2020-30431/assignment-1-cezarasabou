@@ -13,11 +13,11 @@ export class ItemService {
 
 
     getItem(itemId: string, groceryListId: string): Observable<any> {
-      return this.http.get(`${this.baseUrl}${groceryListId}${itemId}`);
+      return this.http.get(`${this.baseUrl}/${groceryListId}/${itemId}`);
     }
 
-    createItem(item: Object): Observable<Object> {
-      return this.http.post(`${this.baseUrl}`, item);
+    createItem(groceryListId: string, item: Object): Observable<Object> {
+      return this.http.post(`${this.baseUrl}/${groceryListId}/createItem`, item);
     }
 
     updateItem(itemId: number, value: any): Observable<Object> {
@@ -25,7 +25,7 @@ export class ItemService {
     }
 
     deleteItem(itemId: number): Observable<any> {
-      return this.http.delete(`${this.baseUrl}/${itemId}`, { responseType: 'text' });
+      return this.http.get(`${this.baseUrl}/deleteItem/${itemId}`, { responseType: 'text' });
     }
 
   ///{groceryListId}/items/{id}

@@ -1,5 +1,5 @@
 <p>Login</p>
-<div [hidden]="submitted" style="width: 400px;">
+<div style="width: 400px;">
   <form (ngSubmit)="onSubmit()">
     <div class="form-group">
       <label for="name">Email</label>
@@ -12,12 +12,9 @@
     </div>
 
     <button  class="btn btn-success pull-right">Login</button>
-    <form (keydown)="keyDownFunction($event)">
-    </form>
+    <div *ngIf="!validLogin && submitted">Wrong username or password. Please try again!</div>
+
   </form>
 </div>
 
-<div [hidden]="!submitted">
-  <span *ngIf="validLogin==false">Wrong username or password. Please try again!</span>
-  <!-- <button class="btn btn-success" (click)="newEmployee()">Add</button> -->
-</div>
+

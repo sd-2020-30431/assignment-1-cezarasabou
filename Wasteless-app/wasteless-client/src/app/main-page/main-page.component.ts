@@ -3,6 +3,7 @@ import {Observable} from "rxjs";
 import {GroceryList} from "../grocery-list/groceryList";
 import {MainPageService} from "./main-page.service";
 import {Router} from "@angular/router";
+import {User} from "../user/user";
 
 @Component({
   selector: 'app-main-page',
@@ -11,21 +12,26 @@ import {Router} from "@angular/router";
 })
 export class MainPageComponent implements OnInit {
 
-
+  activeUser: User;
   groceryLists: Observable<GroceryList[]>;
+
   constructor(private mainPageService: MainPageService,
               private router: Router) { }
 
   ngOnInit() {
-    this.reloadData();
+    this.mainPageService.getActiveUser().subscribe(
+      (user) => {
+        this.activeUser = user;
+        this.reloadData();
+      });
   }
 
   reloadData(){
-    this.groceryLists = this.mainPageService.getAllGroceryLists();
+    this.groceryLists = this.mainPageService.getAllGroceryLists(this.activeUser.id);
   }
 
-  deleteGroceryList(userId: number, groceryListId:number){
-    this.mainPageService.deleteItem(userId,groceryListId)
+  deleteGroceryList(groceryListId:number){
+    this.mainPageService.deleteItem(this.activeUser.id,groceryListId)
       .subscribe(
         data => {
           console.log(data);
@@ -34,8 +40,8 @@ export class MainPageComponent implements OnInit {
         error => console.log(error));
   }
 
-  groceryListDetails(groceryListId:number, userId:number){
-    this.router.navigate(['items',groceryListId]);
+  groceryListDetails(groceryListId:number){
+    this.router.navigate(['groceryList',groceryListId]);
   }
 
 }

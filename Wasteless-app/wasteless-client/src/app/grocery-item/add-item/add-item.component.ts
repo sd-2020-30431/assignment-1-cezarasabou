@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Item } from '../item';
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 import { ItemService } from '../item.service';
 
 @Component({
@@ -12,10 +12,14 @@ export class AddItemComponent implements OnInit {
 
   item: Item =  new Item();
   submitted = false;
+  groceryListId: string;
 
-  constructor(private itemService: ItemService, private router: Router) { }
+  constructor(private itemService: ItemService,
+              private router: Router,
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.groceryListId = this.activatedRoute.snapshot.url[1].path;
   }
 
   newItem(): void{
@@ -24,10 +28,12 @@ export class AddItemComponent implements OnInit {
   }
 
    save() {
-      this.itemService.createItem(this.item)
-        .subscribe(data => console.log(data), error => console.log(error));
-      this.item = new Item();
-      this.gotoList();
+      this.itemService.createItem(this.groceryListId, this.item)
+        .subscribe(
+          data => {
+            this.gotoList();
+          },
+            error => console.log(error));
     }
 
     onSubmit() {
@@ -36,7 +42,7 @@ export class AddItemComponent implements OnInit {
     }
 
     gotoList() {
-      this.router.navigate(['../']);
+      this.router.navigate(['../groceryList',this.groceryListId]);
     }
 
   keyDownFunction(event) {

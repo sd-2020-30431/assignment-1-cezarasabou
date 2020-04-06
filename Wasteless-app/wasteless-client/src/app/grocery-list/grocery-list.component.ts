@@ -38,6 +38,6 @@ export class GroceryListComponent implements OnInit {
 
 
   itemDetails(itemId:number){
-    this.router.navigate(['itemDetails',itemId]);
+    this.router.navigate(['itemDetails',itemId], {relativeTo: this.activatedRoute});
   }
 }

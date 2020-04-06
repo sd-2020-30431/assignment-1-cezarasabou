@@ -27,12 +27,10 @@ const routes: Routes = [
   { path: 'login', component: LoginComponent },
 
 
-  { path: 'itemDetails/:itemId', component: ItemDetailsComponent},
-
-
   { path: 'mainPage', component: MainPageComponent},
   { path: 'mainPage/addGroceryList', component: CreateGroceryListComponent},
   { path: 'groceryList/:groceryListId', component: GroceryListComponent},
+  { path: 'groceryList/:groceryListId/itemDetails/:itemId', component: ItemDetailsComponent},
   { path: 'groceryList/:groceryListId/addItem', component: AddItemComponent },
   { path: 'groceryListDetails/:groceryListId', component: GroceryListComponent},
 

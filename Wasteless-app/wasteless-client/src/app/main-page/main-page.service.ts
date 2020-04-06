@@ -25,7 +25,7 @@ export class MainPageService {
     return this.http.get(`${this.baseUrl}/${userId}/groceryList/${listId}`);
   }
 
-  createGroceryList(userId: string, groceryList: string): Observable<any> {
+  createGroceryList(groceryList: string, userId: number): Observable<any> {
     return this.http.post(`${this.baseUrl}/${userId}/createGroceryList`, groceryList);
   }
 
@@ -36,4 +36,6 @@ export class MainPageService {
   deleteItem(userId: number,groceryListId: number): Observable<any> {
     return this.http.delete(`${this.baseUrl}/${userId}/deleteGroceryList/${groceryListId}`, { responseType: 'text' });
   }
+
+
 }

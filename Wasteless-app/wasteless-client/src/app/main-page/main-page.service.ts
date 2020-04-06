@@ -17,23 +17,23 @@ export class MainPageService {
     return this.http.get(`${this.baseUrl}/activeUser`);
   }
 
-  getAllGroceryLists(): Observable<any> {
-    return this.http.get(`${this.baseUrl}/groceryLists`);
+  getAllGroceryLists(userId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${userId}/groceryLists`);
   }
 
-  getGroceryList(listId: number): Observable<any> {
-    return this.http.get(`${this.baseUrl}/groceryList/${listId}`);
+  getGroceryList(userId:number, listId: number): Observable<any> {
+    return this.http.get(`${this.baseUrl}/${userId}/groceryList/${listId}`);
   }
 
-  createGroceryList(groceryList: string, userId: number): Observable<any> {
+  createGroceryList(userId: string, groceryList: string): Observable<any> {
     return this.http.post(`${this.baseUrl}/${userId}/createGroceryList`, groceryList);
   }
 
-  updateItem(groceryListId: number, value: any): Observable<any> {
-    return this.http.put(`${this.baseUrl}/${groceryListId}`, value);
+  updateItem(userId: number, groceryListId: number, value: any): Observable<any> {
+    return this.http.put(`${this.baseUrl}/${userId}/updateGroceryListItem/${groceryListId}`, value);
   }
 
-  deleteItem(groceryListId: number): Observable<any> {
-    return this.http.delete(`${this.baseUrl}/${groceryListId}`, { responseType: 'text' });
+  deleteItem(userId: number,groceryListId: number): Observable<any> {
+    return this.http.delete(`${this.baseUrl}/${userId}/deleteGroceryList/${groceryListId}`, { responseType: 'text' });
   }
 }

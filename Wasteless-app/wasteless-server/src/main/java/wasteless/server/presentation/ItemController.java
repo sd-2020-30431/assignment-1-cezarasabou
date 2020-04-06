@@ -24,32 +24,34 @@ public class ItemController {
         this.itemMapper = itemMapper;
     }
 
-    @GetMapping("/items")
-    public List<ItemDTO> getAllItems() {
-        return itemService.getAllItems()
+    @GetMapping("/{groceryListId}/items")
+    public List<ItemDTO> getAllItems(@PathVariable("groceryListId") Long groceryListId) {
+        return itemService.getAllItems(groceryListId)
                 .stream()
-                .map(item -> itemMapper.convertToDTO(item))
+                .map(itemMapper::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/items/{id}")
-    public ResponseEntity<ItemDTO> getItemById(@PathVariable(value = "id") Long itemId)
+    @GetMapping("/{groceryListId}/items/{id}")
+    public ResponseEntity<ItemDTO> getItemById(@PathVariable(value = "groceryListId") Long groceryListId,
+                                               @PathVariable(value = "id") Long itemId)
             throws ResourceNotFoundException {
-       Item item = itemService.getItemById(itemId);
+       Item item = itemService.getItemById(groceryListId,itemId);
         return ResponseEntity.ok().body(itemMapper.convertToDTO(item));
     }
 
-    @PostMapping("/items")
-    public ItemDTO createItem(@Valid @RequestBody Item item) {
-        return itemMapper.convertToDTO(itemService.createItem(item));
+    @PostMapping("/{groceryListId}/items")
+    public ItemDTO createItem(@PathVariable(value = "groceryListId") Long groceryListId,@Valid @RequestBody Item item) {
+        return itemMapper.convertToDTO(itemService.createItem(groceryListId,item));
     }
 
-    @PutMapping("/items/{id}")
+    @PutMapping("/{groceryListId}/items/{id}")
     public ResponseEntity<ItemDTO> updateItem(@PathVariable(value = "id") Long itemId,
+                                              @PathVariable(value = "groceryListId") Long groceryListId,
                                            @Valid @RequestBody Item itemDetails) throws ResourceNotFoundException {
 
 
-        final Item updatedItem = itemService.updateItem(itemId,itemDetails);
+        final Item updatedItem = itemService.updateItem(groceryListId,itemId,itemDetails);
         return ResponseEntity.ok(itemMapper.convertToDTO(updatedItem));
     }
 

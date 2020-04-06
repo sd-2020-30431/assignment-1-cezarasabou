@@ -1,6 +1,7 @@
 package wasteless.server.business;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import wasteless.server.exception.ResourceNotFoundException;
 import wasteless.server.model.GroceryList;
@@ -27,11 +28,18 @@ public class GroceryListService {
         this.groceryListMapper = groceryListMapper;
     }
 
-    public List<GroceryList> getAllGroceryLists() {
-        return groceryListRepository.findAll();
+    public List<GroceryList> getAllGroceryLists(Long userId) {
+        User user = userRepository.getOne(userId);
+        return user.getGroceryLists();
     }
 
-    public GroceryList getGroceryListById(Long groceryListId) throws ResourceNotFoundException{
+    public GroceryList getGroceryListById(Long userId, Long groceryListId) throws ResourceNotFoundException{
+
+        //aici iar nu stiu cum sa caut lista dupa id-ul ei si al userului...
+        //adica e functia find by id data de repo, eu nu am acces la ea
+        //stiu ca din user pot gasi toate listele userului
+        User user = userRepository.getOne(userId);
+
         GroceryList groceryList = groceryListRepository.findById(groceryListId)
                 .orElseThrow(() -> new ResourceNotFoundException("Item not found for this id :: " + groceryListId));
 
@@ -45,7 +53,11 @@ public class GroceryListService {
         return groceryListRepository.save(groceryList);
     }
 
-    public GroceryList updateGroceryList(Long groceryListId, GroceryList groceryListDetails) throws ResourceNotFoundException{
+    public GroceryList updateGroceryList(Long userId,Long groceryListId, GroceryList groceryListDetails) throws ResourceNotFoundException{
+
+        //aici iar nu stiu cum sa caut lista dupa id-ul ei si al userului...
+        User user = userRepository.getOne(userId);
+
         GroceryList groceryList = groceryListRepository.findById(groceryListId)
                 .orElseThrow(() -> new ResourceNotFoundException("Item not found for this id :: " + groceryListId));
 
@@ -57,7 +69,11 @@ public class GroceryListService {
         return groceryList;
     }
 
-    public void deleteGroceryList(Long groceryListId) throws ResourceNotFoundException{
+    public void deleteGroceryList(Long userId, Long groceryListId) throws ResourceNotFoundException{
+
+        //aici iar nu stiu cum sa caut lista dupa id-ul ei si al userului...
+        User user = userRepository.getOne(userId);
+
         GroceryList groceryList = groceryListRepository.findById(groceryListId)
                 .orElseThrow(() -> new ResourceNotFoundException("Grocery list not found for this id :: " + groceryListId));
 

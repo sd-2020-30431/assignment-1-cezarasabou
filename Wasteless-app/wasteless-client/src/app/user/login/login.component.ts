@@ -12,6 +12,7 @@ import {User} from "../user";
 export class LoginComponent implements OnInit {
 
   submitted = false;
+  validLogin = false;
   user: User;
 
   constructor(private router: Router,
@@ -28,8 +29,11 @@ export class LoginComponent implements OnInit {
     this.loginService.verifyUser(this.user).subscribe(
       (user) => {
         this.goToMainPage();
+        this.validLogin = true;
       }, () => {
         console.log('Error in the login page!');
+        //aici trebuie sa afisez pe pagina un mesaj de eroare
+
       }
     );
   }

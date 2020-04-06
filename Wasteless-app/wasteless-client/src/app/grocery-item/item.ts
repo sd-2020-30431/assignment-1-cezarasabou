@@ -6,4 +6,6 @@ export class Item{
   purchaseDate: FormDataEntryValue;
   consumptionDate: FormDataEntryValue;
   expirationDate: FormDataEntryValue;
+  groceryListId: number;
+
 }

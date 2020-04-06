@@ -24,8 +24,8 @@ export class MainPageComponent implements OnInit {
     this.groceryLists = this.mainPageService.getAllGroceryLists();
   }
 
-  deleteGroceryList(groceryListId:number){
-    this.mainPageService.deleteItem(groceryListId)
+  deleteGroceryList(userId: number, groceryListId:number){
+    this.mainPageService.deleteItem(userId,groceryListId)
       .subscribe(
         data => {
           console.log(data);
@@ -34,7 +34,7 @@ export class MainPageComponent implements OnInit {
         error => console.log(error));
   }
 
-  groceryListDetails(groceryListId:number){
+  groceryListDetails(groceryListId:number, userId:number){
     this.router.navigate(['items',groceryListId]);
   }
 

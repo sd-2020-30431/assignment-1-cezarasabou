@@ -7,12 +7,13 @@ import { Observable } from 'rxjs';
 })
 export class ItemService {
 
-   private baseUrl = 'http://localhost:8080/items';
+   private baseUrl = 'http://localhost:8080';
 
     constructor(private http: HttpClient) { }
 
-    getItem(itemId: number): Observable<any> {
-      return this.http.get(`${this.baseUrl}/${itemId}`);
+
+    getItem(itemId: string, groceryListId: string): Observable<any> {
+      return this.http.get(`${this.baseUrl}${groceryListId}${itemId}`);
     }
 
     createItem(item: Object): Observable<Object> {
@@ -27,7 +28,8 @@ export class ItemService {
       return this.http.delete(`${this.baseUrl}/${itemId}`, { responseType: 'text' });
     }
 
-    getItemList(): Observable<any> {
-      return this.http.get(`${this.baseUrl}`);
+  ///{groceryListId}/items/{id}
+    getItemList(groceryListId: string): Observable<any> {
+      return this.http.get(`${this.baseUrl}/${groceryListId}/items`);
     }
 }

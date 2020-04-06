@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Observable } from "rxjs";
 import { ItemService } from "../grocery-item/item.service";
 import { Item } from "../grocery-item/item";
-import { Router } from '@angular/router';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-item-list',
@@ -12,15 +12,18 @@ import { Router } from '@angular/router';
 export class GroceryListComponent implements OnInit {
 
   items: Observable<Item[]>;
+  groceryListId: string;
   constructor(private itemService: ItemService,
-    private router: Router) { }
+              private router: Router,
+              private activatedRoute: ActivatedRoute) { }
 
   ngOnInit() {
+    this.groceryListId = this.activatedRoute.snapshot.url[1].path;
     this.reloadData();
   }
 
   reloadData(){
-    this.items = this.itemService.getItemList();
+    this.items = this.itemService.getItemList(this.groceryListId, );
   }
 
   deleteItem(id:number){

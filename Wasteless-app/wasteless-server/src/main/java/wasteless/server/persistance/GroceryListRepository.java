@@ -6,5 +6,4 @@ import wasteless.server.model.GroceryList;
 
 @Repository
 public interface GroceryListRepository extends JpaRepository<GroceryList, Long> {
-
 }

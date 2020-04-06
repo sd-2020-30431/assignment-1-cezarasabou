@@ -15,7 +15,7 @@ public class GroceryList {
 
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int id;
+    private Long id;
     @Column(name = "list_name", nullable = false)
     private String groceryListName;
     @OneToMany(mappedBy = "groceryList", cascade = CascadeType.ALL)
@@ -25,11 +25,11 @@ public class GroceryList {
     @JoinColumn(name="userId", nullable = false)
     private User user;
 
-    public int getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

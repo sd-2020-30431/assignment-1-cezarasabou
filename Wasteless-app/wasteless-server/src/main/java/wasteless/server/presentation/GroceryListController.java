@@ -28,39 +28,43 @@ public class GroceryListController {
     }
 
     //aici am ramas sa fac o functie care converteste cu mapperul din lista in dto
-    @GetMapping("/groceryLists")
-    public List<GroceryListDTO> getAllGroceryLists() {
-        return groceryListService.getAllGroceryLists()
+    @GetMapping("{userId}/groceryLists")
+    public List<GroceryListDTO> getAllGroceryLists( @PathVariable(value = "userId") Long userId) {
+        return groceryListService.getAllGroceryLists(userId)
                 .stream()
                 .map(groceryListMapper::convertToDTO)
                 .collect(Collectors.toList());
     }
 
-    @GetMapping("/groceryList/{id}")
-    public ResponseEntity<GroceryListDTO> getGroceryListById(@PathVariable(value = "id") Long groceryListId)
+    @GetMapping("{userId}/groceryList/{id}")
+    public ResponseEntity<GroceryListDTO> getGroceryListById(@PathVariable(value = "id") Long groceryListId,
+                                                             @PathVariable(value = "userId") Long userId)
             throws ResourceNotFoundException {
-        GroceryList groceryList = groceryListService.getGroceryListById(groceryListId);
+        GroceryList groceryList = groceryListService.getGroceryListById(userId,groceryListId);
         return ResponseEntity.ok().body(groceryListMapper.convertToDTO(groceryList));
     }
 
     @PostMapping("{userId}/createGroceryList")
-    public GroceryListDTO createGroceryList(@PathVariable(value = "userId") Long userId, @Valid @RequestBody String groceryListName) {
+    public GroceryListDTO createGroceryList(@PathVariable(value = "userId") Long userId,
+                                            @Valid @RequestBody String groceryListName) {
         GroceryList groceryList = groceryListService.createGroceryList(userId,groceryListName);
         return groceryListMapper.convertToDTO(groceryList);
     }
 
-    @PutMapping("/updateGroceryListItem/{userId}")
-    public ResponseEntity<GroceryListDTO> updateGroceryList(@PathVariable(value = "userId") Long groceryListId,
+    @PutMapping("{userId}/updateGroceryListItem/{id}")
+    public ResponseEntity<GroceryListDTO> updateGroceryList(@PathVariable(value = "userId") Long userId,
+                                                         @PathVariable(value = "id") Long groceryListId,
                                                          @Valid @RequestBody GroceryList groceryListDetails) throws ResourceNotFoundException {
 
-        final GroceryList updatedGroceryList = groceryListService.updateGroceryList(groceryListId,groceryListDetails);
+        final GroceryList updatedGroceryList = groceryListService.updateGroceryList(userId,groceryListId,groceryListDetails);
         return ResponseEntity.ok(groceryListMapper.convertToDTO(updatedGroceryList));
     }
 
-    @DeleteMapping("/deleteGroceryList/{id}")
-    public Map<String, Boolean> deleteGroceryList(@PathVariable(value = "id") Long groceryListId)
+    @DeleteMapping("{userId}/deleteGroceryList/{id}")
+    public Map<String, Boolean> deleteGroceryList(@PathVariable(value = "id") Long groceryListId,
+                                                  @PathVariable(value = "userId") Long userId)
             throws ResourceNotFoundException {
-        groceryListService.deleteGroceryList(groceryListId);
+        groceryListService.deleteGroceryList(userId,groceryListId);
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return response;

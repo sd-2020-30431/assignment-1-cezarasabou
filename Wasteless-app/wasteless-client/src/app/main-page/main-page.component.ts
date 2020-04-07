@@ -16,9 +16,10 @@ export class MainPageComponent implements OnInit {
   activeUser: User;
   groceryLists: Observable<GroceryList[]>;
   wasteCalculator: WasteCalculator;
-
+  selectedGroceryListId: number;
   submitted = false;
   canCalculateWaste = false;
+  wasteLevelTooHigh = false;
 
   constructor(private mainPageService: MainPageService,
               private router: Router) { }
@@ -57,6 +58,8 @@ export class MainPageComponent implements OnInit {
           console.log(data);
           this.wasteCalculator = data;
           this.canCalculateWaste = true;
+          this.wasteLevelTooHigh = this.wasteCalculator.burndownRateGoal<this.wasteCalculator.wasteResult;
+          this.selectedGroceryListId = groceryListId;
         },
         error => {
           console.log(error);
@@ -64,12 +67,19 @@ export class MainPageComponent implements OnInit {
       )
   }
 
-  getWasteLevel(groceryListId: number){
-    //this.wasteLevel = this.mainPageService.getWasteLevel(this.activeUser.id,groceryListId);
-  }
+
 
   onSubmit(){
     this.submitted = true;
   }
 
+  generateTextReport(){
+    this.mainPageService.getTextFileReport(this.wasteCalculator)
+      .subscribe()
+  }
+
+  generateJsonReport(){
+    this.mainPageService.getJsonFileReport(this.wasteCalculator)
+      .subscribe();
+  }
 }

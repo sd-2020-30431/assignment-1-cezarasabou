@@ -1,6 +1,7 @@
 package wasteless.server.model;
 
 import javax.persistence.*;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 
@@ -98,7 +99,7 @@ public class Item {
     public Integer getDaysUntilExpiration(LocalDate dueDate){
         LocalDate currentDate = LocalDate.now();
         if(dueDate.isAfter(currentDate)){
-
+            return (int) ChronoUnit.DAYS.between(currentDate,dueDate);
         }
         return 0;
     }

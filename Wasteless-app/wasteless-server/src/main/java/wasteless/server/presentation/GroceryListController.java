@@ -2,6 +2,7 @@ package wasteless.server.presentation;
 
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import wasteless.server.business.ExportService;
 import wasteless.server.business.GroceryListService;
 import wasteless.server.business.WasteManagerService;
 import wasteless.server.model.GroceryList;
@@ -22,11 +23,16 @@ public class GroceryListController {
     private final GroceryListService groceryListService;
     private final GroceryListMapper groceryListMapper;
     private final WasteManagerService wasteManagerService;
+    private final ExportService exportService;
 
-    public GroceryListController(GroceryListService groceryListService, GroceryListMapper groceryListMapper, WasteManagerService wasteManagerService) {
+    public GroceryListController(GroceryListService groceryListService,
+                                 GroceryListMapper groceryListMapper,
+                                 WasteManagerService wasteManagerService,
+                                 ExportService exportService) {
         this.groceryListService = groceryListService;
         this.groceryListMapper = groceryListMapper;
         this.wasteManagerService = wasteManagerService;
+        this.exportService = exportService;
     }
 
     //aici am ramas sa fac o functie care converteste cu mapperul din lista in dto
@@ -87,5 +93,16 @@ public class GroceryListController {
         Map<String, Boolean> response = new HashMap<>();
         response.put("deleted", Boolean.TRUE);
         return response;
+    }
+
+    @PostMapping("textFile")
+    public void generateTextReport(@Valid @RequestBody WasteCalculatorDTO wasteCalculatorDTO) {
+        exportService.exportTextWasteReport(wasteCalculatorDTO);
+    }
+
+
+    @PostMapping("jsonFile")
+    public void generateJsonReport(@Valid @RequestBody WasteCalculatorDTO wasteCalculatorDTO){
+        exportService.exportJsonWasteReport(wasteCalculatorDTO);
     }
 }

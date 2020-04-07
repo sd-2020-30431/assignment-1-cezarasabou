@@ -14,10 +14,12 @@ public class WasteManagerService {
     public int getTotalCalories(LocalDate calculationDay, GroceryList groceryList) {
 
         int totalCalories = 0;
+        float calorieRate = 0;
+
         for(Item item : groceryList.getGroceryItems()){
-            if(!item.checkIfAlreadyExpired(calculationDay)) {
-                totalCalories += item.getCalorieValue();
-            }
+
+            calorieRate = item.getCalorieValue()/item.getDaysUntilExpiration(calculationDay);
+            totalCalories += calorieRate;
         }
         return totalCalories;
     }

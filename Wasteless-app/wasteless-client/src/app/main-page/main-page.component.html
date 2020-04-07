@@ -1,3 +1,7 @@
+<div *ngIf="wasteLevelTooHigh" class="alert alert-danger" role="alert">
+  The waste level for the selected list is too HIGH!
+</div>
+
 <div class="panel panel-primary">
   <div class="panel-heading">
     <h2>Your Grocery Lists</h2>
@@ -15,7 +19,7 @@
         <td>{{groceryList.groceryListName}}</td>
         <td><button (click)="deleteGroceryList(groceryList.groceryListId)" class="btn btn-danger">Delete</button>
           <button  (click)="groceryListDetails(groceryList.groceryListId)" class="btn btn-info" style="margin-left: 10px">Details</button>
-          <button (click)= "calculateWaste(groceryList.groceryListId)" type="submit" class="btn btn-success">Waste Level</button>
+          <button (click)= "calculateWaste(groceryList.groceryListId)" type="submit" class="btn btn-success" style="margin-left: 10px">Waste Level</button>
         </td>
       </tr>
       <button routerLink="addGroceryList" class="btn btn-success pull-right">Add Grocery List</button>
@@ -38,10 +42,22 @@
         </td>
       </tbody>
 
-      <p *ngIf="canCalculateWaste">
-        The waste level for {{wasteCalculator.groceryListName}} is {{wasteCalculator.wasteResult}}
-      </p>
+      <div *ngIf="canCalculateWaste">
+        The calorie value for {{wasteCalculator.groceryListName}} is {{wasteCalculator.wasteResult}}
+        And the waste levels are {{wasteCalculator.wasteResult - wasteCalculator.burndownRateGoal}}
+        <div>
+          <button (click)="generateTextReport()"  class="btn btn-success pull-right">Generate Text Report</button>
+        </div>
+
+        <div>
+          <button  (click)="generateJsonReport()" style="margin-top: 10px" class="btn btn-success pull-right">Generate Json Report</button>
+        </div>
+
+      </div>
     </table>
+
+
+
 
   </div>
 

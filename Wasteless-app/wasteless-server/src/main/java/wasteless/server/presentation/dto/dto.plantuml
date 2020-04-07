@@ -80,6 +80,28 @@ title __DTO's Class Diagram__\n
   }
   
 
+  namespace wasteless.server {
+    namespace presentation {
+      namespace dto {
+        class wasteless.server.presentation.dto.WasteCalculatorDTO {
+            - burndownRateGoal : Integer
+            - calculationDate : LocalDate
+            - groceryListName : String
+            - wasteResult : Integer
+            + getBurndownRateGoal()
+            + getCalculationDate()
+            + getGroceryListName()
+            + getWasteResult()
+            + setBurndownRateGoal()
+            + setCalculationDate()
+            + setGroceryListName()
+            + setWasteResult()
+        }
+      }
+    }
+  }
+  
+
 
 
 right footer

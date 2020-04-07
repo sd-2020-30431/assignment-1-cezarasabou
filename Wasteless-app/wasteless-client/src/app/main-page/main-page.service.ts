@@ -46,4 +46,12 @@ export class MainPageService {
   getWasteLevel(userId:number, groceryListId:number){
     return this.http.get(`${this.baseUrl}/${userId}/${groceryListId}`);
   }
+
+  getTextFileReport(wasteCalculator: WasteCalculator){
+    return this.http.post(`${this.baseUrl}/textFile`,wasteCalculator);
+  }
+
+  getJsonFileReport(wasteCalculator: WasteCalculator){
+    return this.http.post(`${this.baseUrl}/jsonFile`,wasteCalculator);
+  }
 }

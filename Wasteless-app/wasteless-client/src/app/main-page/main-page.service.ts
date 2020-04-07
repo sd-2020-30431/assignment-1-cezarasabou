@@ -3,6 +3,7 @@ import {HttpClient} from "@angular/common/http";
 import {Observable} from "rxjs";
 import {User} from "../user/user";
 import {GroceryList} from "../grocery-list/groceryList";
+import {WasteCalculator} from "./waste-calculator";
 
 @Injectable({
   providedIn: 'root'
@@ -37,5 +38,12 @@ export class MainPageService {
     return this.http.delete(`${this.baseUrl}/${userId}/deleteGroceryList/${groceryListId}`, { responseType: 'text' });
   }
 
+  //aici trimit obiectul cu tot ce trebuie
+  calculateWaste(userId: number, groceryListId:number, wasteCalculator: WasteCalculator): Observable<any>{
+    return this.http.post(`${this.baseUrl}/${userId}/${groceryListId}`, wasteCalculator)
+  }
 
+  getWasteLevel(userId:number, groceryListId:number){
+    return this.http.get(`${this.baseUrl}/${userId}/${groceryListId}`);
+  }
 }

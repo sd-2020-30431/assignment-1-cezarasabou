@@ -3,11 +3,11 @@ package wasteless.server.presentation;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import wasteless.server.business.GroceryListService;
+import wasteless.server.business.WasteManagerService;
 import wasteless.server.model.GroceryList;
 import wasteless.server.exception.ResourceNotFoundException;
-import wasteless.server.model.User;
 import wasteless.server.presentation.dto.GroceryListDTO;
-import wasteless.server.presentation.dto.UserDTO;
+import wasteless.server.presentation.dto.WasteCalculatorDTO;
 import wasteless.server.presentation.mapper.GroceryListMapper;
 
 import javax.validation.Valid;
@@ -21,10 +21,12 @@ public class GroceryListController {
 
     private final GroceryListService groceryListService;
     private final GroceryListMapper groceryListMapper;
+    private final WasteManagerService wasteManagerService;
 
-    public GroceryListController(GroceryListService groceryListService, GroceryListMapper groceryListMapper) {
+    public GroceryListController(GroceryListService groceryListService, GroceryListMapper groceryListMapper, WasteManagerService wasteManagerService) {
         this.groceryListService = groceryListService;
         this.groceryListMapper = groceryListMapper;
+        this.wasteManagerService = wasteManagerService;
     }
 
     //aici am ramas sa fac o functie care converteste cu mapperul din lista in dto
@@ -53,12 +55,27 @@ public class GroceryListController {
 
     //public ceva calculaterates(@PathVariable(value="userId") Long userId,@Valid @RequestBody ceva )
 
+    @PostMapping("{userId}/{groceryListId}")
+    public WasteCalculatorDTO calculateWaste(@PathVariable(value = "userId") Long userId,
+                                             @PathVariable(value = "groceryListId") Long groceryListId,
+                                             @Valid @RequestBody WasteCalculatorDTO wasteCalculatorDTO) throws ResourceNotFoundException{
+
+        //calcule aici
+        //nu pot accesa metoda din aceasta clasa!!
+        GroceryList groceryList = groceryListService.getGroceryListById(userId, groceryListId);
+        wasteCalculatorDTO.setWasteResult(
+                wasteManagerService.getTotalCalories(wasteCalculatorDTO.getCalculationDate(), groceryList));
+        wasteCalculatorDTO.setGroceryListName(groceryList.getGroceryListName());
+        return wasteCalculatorDTO;
+    }
+
     @PutMapping("{userId}/updateGroceryListItem/{id}")
     public ResponseEntity<GroceryListDTO> updateGroceryList(@PathVariable(value = "userId") Long userId,
                                                          @PathVariable(value = "id") Long groceryListId,
                                                          @Valid @RequestBody GroceryList groceryListDetails) throws ResourceNotFoundException {
 
-        final GroceryList updatedGroceryList = groceryListService.updateGroceryList(userId,groceryListId,groceryListDetails);
+        final GroceryList updatedGroceryList =
+                groceryListService.updateGroceryList(userId,groceryListId,groceryListDetails);
         return ResponseEntity.ok(groceryListMapper.convertToDTO(updatedGroceryList));
     }
 
@@ -71,6 +88,4 @@ public class GroceryListController {
         response.put("deleted", Boolean.TRUE);
         return response;
     }
-
-
 }

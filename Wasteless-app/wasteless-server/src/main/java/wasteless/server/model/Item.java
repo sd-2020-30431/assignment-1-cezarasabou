@@ -95,4 +95,12 @@ public class Item {
         return this.expirationDate.isAfter(currentDate);
     }
 
+    public Integer getDaysUntilExpiration(LocalDate dueDate){
+        LocalDate currentDate = LocalDate.now();
+        if(dueDate.isAfter(currentDate)){
+
+        }
+        return 0;
+    }
+
 }

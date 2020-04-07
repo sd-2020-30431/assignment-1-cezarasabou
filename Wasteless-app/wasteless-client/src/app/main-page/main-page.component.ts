@@ -4,6 +4,7 @@ import {GroceryList} from "../grocery-list/groceryList";
 import {MainPageService} from "./main-page.service";
 import {Router} from "@angular/router";
 import {User} from "../user/user";
+import {WasteCalculator} from "./waste-calculator";
 
 @Component({
   selector: 'app-main-page',
@@ -14,11 +15,16 @@ export class MainPageComponent implements OnInit {
 
   activeUser: User;
   groceryLists: Observable<GroceryList[]>;
+  wasteCalculator: WasteCalculator;
+
+  submitted = false;
+  canCalculateWaste = false;
 
   constructor(private mainPageService: MainPageService,
               private router: Router) { }
 
   ngOnInit() {
+    this.wasteCalculator = new WasteCalculator();
     this.mainPageService.getActiveUser().subscribe(
       (user) => {
         this.activeUser = user;
@@ -42,6 +48,28 @@ export class MainPageComponent implements OnInit {
 
   groceryListDetails(groceryListId:number){
     this.router.navigate(['groceryList',groceryListId]);
+  }
+
+  calculateWaste(groceryListId: number) {
+    this.mainPageService.calculateWaste(this.activeUser.id,groceryListId,this.wasteCalculator)
+      .subscribe(
+        (data: WasteCalculator) =>{
+          console.log(data);
+          this.wasteCalculator = data;
+          this.canCalculateWaste = true;
+        },
+        error => {
+          console.log(error);
+        }
+      )
+  }
+
+  getWasteLevel(groceryListId: number){
+    //this.wasteLevel = this.mainPageService.getWasteLevel(this.activeUser.id,groceryListId);
+  }
+
+  onSubmit(){
+    this.submitted = true;
   }
 
 }

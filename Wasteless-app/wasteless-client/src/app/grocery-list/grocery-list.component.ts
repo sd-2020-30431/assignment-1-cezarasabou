@@ -40,4 +40,8 @@ export class GroceryListComponent implements OnInit {
   itemDetails(itemId:number){
     this.router.navigate(['itemDetails',itemId], {relativeTo: this.activatedRoute});
   }
+
+  mainPage(){
+    this.router.navigate(['../../mainPage'], {relativeTo: this.activatedRoute})
+  }
 }

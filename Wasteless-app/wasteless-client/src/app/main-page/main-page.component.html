@@ -15,11 +15,34 @@
         <td>{{groceryList.groceryListName}}</td>
         <td><button (click)="deleteGroceryList(groceryList.groceryListId)" class="btn btn-danger">Delete</button>
           <button  (click)="groceryListDetails(groceryList.groceryListId)" class="btn btn-info" style="margin-left: 10px">Details</button>
+          <button (click)= "calculateWaste(groceryList.groceryListId)" type="submit" class="btn btn-success">Waste Level</button>
         </td>
       </tr>
+      <button routerLink="addGroceryList" class="btn btn-success pull-right">Add Grocery List</button>
       </tbody>
     </table>
 
-    <button routerLink="addGroceryList" class="btn btn-success pull-right">Add Grocery List</button>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th>Input Day for waste level calculation</th>
+        <th>Input your burndown goal</th>
+      </tr>
+      </thead>
+      <tbody>
+        <td>
+          <input type="date" class="form-control" id="calculationDate" required [(ngModel)]="wasteCalculator.calculationDate" name="calculationDate">
+        </td>
+        <td>
+          <input type="number" class="form-control" id="burndownRateGoal" required [(ngModel)]="wasteCalculator.burndownRateGoal" name="burndownRateGoal">
+        </td>
+      </tbody>
+
+      <p *ngIf="canCalculateWaste">
+        The waste level for {{wasteCalculator.groceryListName}} is {{wasteCalculator.wasteResult}}
+      </p>
+    </table>
+
   </div>
+
 </div>

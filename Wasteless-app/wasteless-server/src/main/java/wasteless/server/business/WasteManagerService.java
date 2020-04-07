@@ -11,11 +11,7 @@ import java.util.List;
 @Service
 public class WasteManagerService {
 
-    private int wasteLimit;
-    private int idealBurndownRate;
-
-
-    private int getTotalCalories(GroceryList groceryList, int userGoal, LocalDate calculationDay) {
+    public int getTotalCalories(LocalDate calculationDay, GroceryList groceryList) {
 
         int totalCalories = 0;
         for(Item item : groceryList.getGroceryItems()){
@@ -23,11 +19,6 @@ public class WasteManagerService {
                 totalCalories += item.getCalorieValue();
             }
         }
-
         return totalCalories;
     }
-
-
-
-
 }

@@ -1,47 +1,39 @@
 @startuml
+!define DARKORANGE
+!includeurl https://raw.githubusercontent.com/Drakemor/RedDress-PlantUML/master/style.puml
 
 title __REPORT's Class Diagram__\n
 
   namespace wasteless.server {
     namespace export.report {
-      class wasteless.server.export.report.JsonReport {
+      class JsonReport {
           + dumpReport()
       }
-    }
-  }
-  
-
-  namespace wasteless.server {
-    namespace export.report {
-      interface wasteless.server.export.report.Report {
-          {abstract} + dumpReport()
+      interface Report {
+               {abstract} + dumpReport()
       }
-    }
-  }
-  
 
-  namespace wasteless.server {
-    namespace export.report {
       enum ReportType {
-        JSON_REPORT
-        TEXT_REPORT
+              JSON_REPORT
+              TEXT_REPORT
       }
+
+     class TextReport {
+               + dumpReport()
+               - writeToFile()
+        }
+
+      JsonReport .up.|> Report
+      TextReport .up.|> Report
+
     }
   }
   
 
-  namespace wasteless.server {
-    namespace export.report {
-      class wasteless.server.export.report.TextReport {
-          + dumpReport()
-          - writeToFile()
-      }
-    }
-  }
+
+
   
 
-  wasteless.server.export.report.JsonReport .up.|> wasteless.server.export.report.Report
-  wasteless.server.export.report.TextReport .up.|> wasteless.server.export.report.Report
 
 
 right footer
